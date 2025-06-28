@@ -1,5 +1,6 @@
 # File: branchlog/__main__.py
 import argparse
+import os
 from datetime import datetime, timedelta
 from collections import defaultdict
 from branchlog.local_git import GitRepository
@@ -9,6 +10,7 @@ def parse_args():
     parser = argparse.ArgumentParser(description="List Git branches you worked on in the last N days.")
     parser.add_argument("--days", type=int, default=7, help="Number of past days to check")
     parser.add_argument("--author", type=str, help="Git author name (default: git config user.name)")
+    parser.add_argument("--path", type=str, default=".", help="Path to the Git project (default: current directory)")
     return parser.parse_args()
 
 
@@ -42,6 +44,16 @@ def render_output(summary, author, days):
 def main():
     logging.basicConfig(level=logging.INFO, format="%(message)s")
     args = parse_args()
+
+    try:
+        os.chdir(args.path)
+    except FileNotFoundError:
+        logging.error(f"Path '{args.path}' does not exist.")
+        return
+    except NotADirectoryError:
+        logging.error(f"Path '{args.path}' is not a directory.")
+        return
+
     repo = GitRepository()
 
     if not repo.is_valid_repo():
