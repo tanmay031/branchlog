@@ -25,7 +25,7 @@ pip install branchlog
 Or install from source:
 
 ```bash
-git clone https://github.com/yourusername/branchlog.git
+git clone https://github.com/tanmay031/branchlog
 cd branchlog
 pip install -e .
 ```
@@ -71,13 +71,6 @@ Branches with commits by 'rahman' in the last 7 days:
 - Total commits: 6
 - Most active branch: feature/api-integration (3 commits)
 ```
-
----
-
-## 🦪 Pro Tip
-
-Run `branchlog` from a scheduled cron job or GitHub Action to keep a daily/weekly activity log!
-
 ---
 
 ## 💡 Roadmap Ideas
